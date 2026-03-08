@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head><title>Login</title></head>
+<body>
+<div layout:fragment="content">
+
+    <div class="row justify-content-center">
+        <div class="col-md-5 col-lg-4">
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white text-center py-3">
+                    <i class="bi bi-shield-lock fs-3 d-block mb-1"></i>
+                    <h5 class="fw-bold mb-0">Connexion</h5>
+                    <small class="opacity-75">Entrez vos identifiants</small>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" th:action="@{/login}">
+                        <div class="mb-3">
+                            <label for="username" class="form-label small fw-bold text-secondary">USERNAME</label>
+                            <input type="text" id="username" name="username" class="form-control"
+                                   placeholder="Votre login">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label small fw-bold text-secondary">PASSWORD</label>
+                            <input type="password" id="password" name="password" class="form-control"
+                                   placeholder="Votre mot de passe">
+                        </div>
+                        <div class="d-grid mt-4">
+                            <button class="btn btn-dark fw-bold">
+                                <i class="bi bi-box-arrow-in-right me-1"></i> Se connecter
+                            </button>
+                        </div>
+                    </form>
+                    <p class="text-center text-secondary small mt-3 mb-0">
+                        <i class="bi bi-info-circle me-1"></i>Partie visuelle uniquement.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

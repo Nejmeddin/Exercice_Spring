@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head><title>Recherche</title></head>
+<body>
+<div layout:fragment="content">
+
+    <h4 class="fw-bold mb-1"><i class="bi bi-search text-primary me-2"></i>Recherche de personne</h4>
+    <p class="text-secondary small mb-4">Critères combinés avec l'opérateur ET</p>
+
+    <!-- Formulaire -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white fw-bold">
+            <i class="bi bi-funnel text-primary me-1"></i> Critères
+        </div>
+        <div class="card-body">
+            <form th:action="@{/persons/search}" method="get" class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    <label for="nom" class="form-label small fw-bold text-secondary">NOM (CONTIENT)</label>
+                    <input type="text" id="nom" name="nom" class="form-control"
+                           placeholder="Ex : Ben Ali" th:value="${nom}">
+                </div>
+                <div class="col-md-3">
+                    <label for="prenom" class="form-label small fw-bold text-secondary">PRÉNOM (CONTIENT)</label>
+                    <input type="text" id="prenom" name="prenom" class="form-control"
+                           placeholder="Ex : Mohamed" th:value="${prenom}">
+                </div>
+                <div class="col-md-3">
+                    <label for="civilite" class="form-label small fw-bold text-secondary">CIVILITÉ</label>
+                    <select id="civilite" name="civilite" class="form-select">
+                        <option value="">— Toutes —</option>
+                        <option th:each="c : ${civilites}"
+                                th:value="${c}"
+                                th:text="${c.name() == 'M' ? 'M.' : (c.name() == 'Mme' ? 'Mme' : 'Mlle')}"
+                                th:selected="${civilite != null and civilite == c}">
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search me-1"></i> Rechercher
+                    </button>
+                    <a th:href="@{/persons/search}" class="btn btn-outline-secondary">
+                        <i class="bi bi-x-lg"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Résultats -->
+    <div th:if="${searched}">
+        <p class="text-secondary small fw-bold mb-2">
+            <span th:text="${#lists.size(persons)}">0</span> résultat(s)
+        </p>
+
+        <div class="card shadow-sm" th:if="${!#lists.isEmpty(persons)}">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Civilité</th>
+                        <th>Adresse</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p : ${persons}">
+                        <td>
+                            <a th:href="@{/persons/{id}(id=${p.id})}"
+                               class="fw-bold text-decoration-none text-primary">
+                                <i class="bi bi-pencil-square me-1"></i>
+                                <span th:text="${p.nom}"></span>
+                            </a>
+                        </td>
+                        <td th:text="${p.prenom}"></td>
+                        <td>
+                            <span class="badge"
+                                  th:classappend="${p.civilite.name() == 'M'} ? 'bg-primary' : (${p.civilite.name() == 'Mme'} ? 'bg-success' : 'bg-info text-dark')"
+                                  th:text="${p.civilite.name() == 'M' ? 'M.' : (p.civilite.name() == 'Mme' ? 'Mme' : 'Mlle')}">
+                            </span>
+                        </td>
+                        <td class="text-secondary" th:text="${p.adresse} ?: '—'"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Aucun résultat -->
+        <div th:if="${#lists.isEmpty(persons)}" class="card shadow-sm">
+            <div class="card-body text-center py-5">
+                <i class="bi bi-inbox text-secondary" style="font-size:2.5rem;"></i>
+                <p class="text-secondary mt-2 mb-0">Aucune personne ne correspond à vos critères.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- État initial -->
+    <div th:unless="${searched}" class="card shadow-sm">
+        <div class="card-body text-center py-5">
+            <i class="bi bi-search text-secondary" style="font-size:2.5rem;"></i>
+            <p class="text-secondary mt-2 mb-0">Remplissez les critères ci-dessus puis cliquez sur <strong>Rechercher</strong>.</p>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
