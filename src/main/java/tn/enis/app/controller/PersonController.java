@@ -123,4 +123,46 @@ public class PersonController {
         redirectAttributes.addFlashAttribute("success", "Personne modifiée avec succès !");
         return "redirect:/persons/" + id;
     }
+
+    /* ───── Ajout (GET) ───── */
+
+    @GetMapping("/persons/new")
+    public String addForm(Model model) {
+        model.addAttribute("person", new Person());
+        model.addAttribute("civilites", Person.Civility.values());
+        return "add";
+    }
+
+    /* ───── Ajout (POST) avec validation Spring ───── */
+
+    @PostMapping("/persons/new")
+    public String add(
+            @Valid Person person,
+            BindingResult bindingResult,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("civilites", Person.Civility.values());
+            return "add";
+        }
+
+        personRepository.save(person);
+        redirectAttributes.addFlashAttribute("success", "Personne ajoutée avec succès !");
+        return "redirect:/persons/search";
+    }
+
+    /* ───── Suppression (POST) — ADMIN uniquement ───── */
+
+    @PostMapping("/persons/{id}/delete")
+    public String delete(
+            @PathVariable("id") Long id,
+            RedirectAttributes redirectAttributes) {
+
+        if (personRepository.existsById(id)) {
+            personRepository.deleteById(id);
+            redirectAttributes.addFlashAttribute("success", "Personne supprimée avec succès !");
+        }
+        return "redirect:/persons/search";
+    }
 }

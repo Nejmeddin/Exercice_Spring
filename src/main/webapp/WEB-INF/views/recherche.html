@@ -2,13 +2,27 @@
 <html lang="fr"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <head><title>Recherche</title></head>
 <body>
 <div layout:fragment="content">
 
-    <h4 class="fw-bold mb-1"><i class="bi bi-search text-primary me-2"></i>Recherche de personne</h4>
-    <p class="text-secondary small mb-4">Critères combinés avec l'opérateur ET</p>
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h4 class="fw-bold mb-0"><i class="bi bi-search text-primary me-2"></i>Recherche de personne</h4>
+            <p class="text-secondary small mb-0">Critères combinés avec l'opérateur ET</p>
+        </div>
+        <a th:href="@{/persons/new}" class="btn btn-success btn-sm" sec:authorize="hasAnyRole('ADMIN','USER')">
+            <i class="bi bi-person-plus me-1"></i> Ajouter
+        </a>
+    </div>
+
+    <!-- Message succès -->
+    <div th:if="${success}" class="alert alert-success d-flex align-items-center" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        <span th:text="${success}"></span>
+    </div>
 
     <!-- Formulaire -->
     <div class="card shadow-sm mb-4">
@@ -65,16 +79,19 @@
                         <th>Prénom</th>
                         <th>Civilité</th>
                         <th>Adresse</th>
+                        <th sec:authorize="hasRole('ADMIN')" class="text-center">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="p : ${persons}">
                         <td>
                             <a th:href="@{/persons/{id}(id=${p.id})}"
-                               class="fw-bold text-decoration-none text-primary">
+                               class="fw-bold text-decoration-none text-primary"
+                               sec:authorize="hasRole('ADMIN')">
                                 <i class="bi bi-pencil-square me-1"></i>
                                 <span th:text="${p.nom}"></span>
                             </a>
+                            <span th:text="${p.nom}" sec:authorize="!hasRole('ADMIN')"></span>
                         </td>
                         <td th:text="${p.prenom}"></td>
                         <td>
@@ -84,6 +101,15 @@
                             </span>
                         </td>
                         <td class="text-secondary" th:text="${p.adresse} ?: '—'"></td>
+                        <td sec:authorize="hasRole('ADMIN')" class="text-center">
+                            <form method="post" th:action="@{/persons/{id}/delete(id=${p.id})}"
+                                  onsubmit="return confirm('Supprimer cette personne ?');"
+                                  style="display:inline;">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

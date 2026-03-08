@@ -10,6 +10,16 @@
     <div class="row justify-content-center">
         <div class="col-md-5 col-lg-4">
 
+            <!-- Message de déconnexion -->
+            <div th:if="${param.logout}" class="alert alert-info d-flex align-items-center mb-3" role="alert">
+                <i class="bi bi-info-circle-fill me-2"></i> Vous avez été déconnecté avec succès.
+            </div>
+
+            <!-- Message d'erreur -->
+            <div th:if="${param.error}" class="alert alert-danger d-flex align-items-center mb-3" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i> Login ou mot de passe incorrect.
+            </div>
+
             <div class="card shadow-sm">
                 <div class="card-header bg-dark text-white text-center py-3">
                     <i class="bi bi-shield-lock fs-3 d-block mb-1"></i>
@@ -21,7 +31,7 @@
                         <div class="mb-3">
                             <label for="username" class="form-label small fw-bold text-secondary">USERNAME</label>
                             <input type="text" id="username" name="username" class="form-control"
-                                   placeholder="Votre login">
+                                   placeholder="Votre login" autofocus>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label small fw-bold text-secondary">PASSWORD</label>
@@ -34,9 +44,6 @@
                             </button>
                         </div>
                     </form>
-                    <p class="text-center text-secondary small mt-3 mb-0">
-                        <i class="bi bi-info-circle me-1"></i>Partie visuelle uniquement.
-                    </p>
                 </div>
             </div>
 

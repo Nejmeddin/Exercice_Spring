@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head><title>Accès refusé</title></head>
+<body>
+<div layout:fragment="content">
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center py-5">
+            <i class="bi bi-shield-exclamation text-danger" style="font-size:4rem;"></i>
+            <h3 class="fw-bold mt-3">Accès refusé</h3>
+            <p class="text-secondary">Vous n'avez pas les droits nécessaires pour accéder à cette page.</p>
+            <a th:href="@{/}" class="btn btn-primary mt-2">
+                <i class="bi bi-house-door me-1"></i> Retour à l'accueil
+            </a>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
+

@@ -11,4 +11,9 @@ public class HomeController {
     public String home() {
         return "home";
     }
+
+    @GetMapping("/access-denied")
+    public String accessDenied() {
+        return "access-denied";
+    }
 }

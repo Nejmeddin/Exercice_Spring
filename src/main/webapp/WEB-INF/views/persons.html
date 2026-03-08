@@ -2,6 +2,7 @@
 <html lang="fr"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <head><title>Personnes</title></head>
 <body>
@@ -15,9 +16,14 @@
                 <span th:text="${#lists.size(persons)}">0</span> enregistrement(s)
             </p>
         </div>
-        <a th:href="@{/persons/search}" class="btn btn-primary btn-sm">
-            <i class="bi bi-search me-1"></i> Rechercher
-        </a>
+        <div class="d-flex gap-2">
+            <a th:href="@{/persons/new}" class="btn btn-success btn-sm" sec:authorize="hasAnyRole('ADMIN','USER')">
+                <i class="bi bi-person-plus me-1"></i> Ajouter
+            </a>
+            <a th:href="@{/persons/search}" class="btn btn-primary btn-sm">
+                <i class="bi bi-search me-1"></i> Rechercher
+            </a>
+        </div>
     </div>
 
     <!-- Tableau -->
@@ -32,6 +38,7 @@
                     <th>Prénom</th>
                     <th>Adresse</th>
                     <th>Date naissance</th>
+                    <th sec:authorize="hasRole('ADMIN')" class="text-center">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,17 +51,29 @@
                     </td>
                     <td>
                         <a th:href="@{/persons/{id}(id=${p.id})}"
-                           class="fw-bold text-decoration-none text-primary">
+                           class="fw-bold text-decoration-none text-primary"
+                           sec:authorize="hasRole('ADMIN')">
+                            <i class="bi bi-pencil-square me-1"></i>
                             <span th:text="${p.nom}"></span>
                         </a>
+                        <span th:text="${p.nom}" class="fw-bold" sec:authorize="!hasRole('ADMIN')"></span>
                     </td>
                     <td th:text="${p.prenom}"></td>
                     <td class="text-secondary" th:text="${p.adresse} ?: '—'"></td>
                     <td class="text-secondary"
                         th:text="${p.dateNaissance != null} ? ${#temporals.format(p.dateNaissance, 'dd/MM/yyyy')} : '—'"></td>
+                    <td sec:authorize="hasRole('ADMIN')" class="text-center">
+                        <form method="post" th:action="@{/persons/{id}/delete(id=${p.id})}"
+                              onsubmit="return confirm('Supprimer cette personne ?');"
+                              style="display:inline;">
+                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(persons)}">
-                    <td colspan="6" class="text-center py-5">
+                    <td colspan="7" class="text-center py-5">
                         <i class="bi bi-people text-secondary" style="font-size:2.5rem;"></i>
                         <p class="text-secondary mt-2 mb-0">Aucune personne trouvée.</p>
                     </td>
