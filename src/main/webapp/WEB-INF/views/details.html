@@ -8,14 +8,11 @@
 <div layout:fragment="content">
 
     <div class="row justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-7">
 
-            <!-- Header -->
+            <!-- En-tête -->
             <div class="d-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h4 class="fw-bold mb-0"><i class="bi bi-pencil-square text-primary me-2"></i>Détail / Modification</h4>
-                    <p class="text-secondary small mb-0">Modifiez les informations puis enregistrez</p>
-                </div>
+                <h4 class="fw-bold mb-0"><i class="bi bi-pencil-square me-2" style="color:#6366f1;"></i>Modifier la personne</h4>
                 <a th:href="@{/persons/search}" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-arrow-left me-1"></i> Retour
                 </a>
@@ -28,24 +25,25 @@
             </div>
 
             <!-- Formulaire -->
-            <div class="card shadow-sm">
-                <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
-                    <div class="bg-primary text-white rounded d-flex align-items-center justify-content-center fw-bold"
-                         style="width:40px;height:40px;font-size:1rem;"
+            <div class="card shadow-card">
+                <div class="text-white py-3 px-4 d-flex align-items-center gap-3"
+                     style="background: linear-gradient(135deg, #6366f1, #a855f7); border-radius: 12px 12px 0 0;">
+                    <div class="bg-white rounded-circle d-flex align-items-center justify-content-center fw-bold"
+                         style="width:42px; height:42px; color:#6366f1; font-size:1.1rem;"
                          th:text="${person.nom != null and !person.nom.isEmpty()} ? ${person.nom.substring(0,1).toUpperCase()} : '?'">A</div>
                     <div>
                         <span class="fw-bold" th:text="${person.prenom + ' ' + person.nom}"></span>
                         <br>
-                        <small class="text-secondary">ID #<span th:text="${person.id}"></span></small>
+                        <small class="opacity-75">ID #<span th:text="${person.id}"></span></small>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     <form method="post" th:action="@{/persons/{id}(id=${person.id})}" th:object="${person}">
                         <div class="row g-3">
 
                             <!-- Nom -->
                             <div class="col-md-6">
-                                <label for="nom" class="form-label small fw-bold text-secondary">NOM <span class="text-danger">*</span></label>
+                                <label for="nom" class="form-label fw-semibold">Nom <span class="text-danger">*</span></label>
                                 <input type="text" id="nom" class="form-control"
                                        th:field="*{nom}"
                                        th:classappend="${#fields.hasErrors('nom')} ? 'is-invalid'">
@@ -54,7 +52,7 @@
 
                             <!-- Prénom -->
                             <div class="col-md-6">
-                                <label for="prenom" class="form-label small fw-bold text-secondary">PRÉNOM <span class="text-danger">*</span></label>
+                                <label for="prenom" class="form-label fw-semibold">Prénom <span class="text-danger">*</span></label>
                                 <input type="text" id="prenom" class="form-control"
                                        th:field="*{prenom}"
                                        th:classappend="${#fields.hasErrors('prenom')} ? 'is-invalid'">
@@ -63,7 +61,7 @@
 
                             <!-- Civilité -->
                             <div class="col-md-6">
-                                <label for="civilite" class="form-label small fw-bold text-secondary">CIVILITÉ</label>
+                                <label for="civilite" class="form-label fw-semibold">Civilité</label>
                                 <select id="civilite" class="form-select" th:field="*{civilite}">
                                     <option th:each="c : ${civilites}"
                                             th:value="${c}"
@@ -74,7 +72,7 @@
 
                             <!-- Date naissance -->
                             <div class="col-md-6">
-                                <label for="dateNaissance" class="form-label small fw-bold text-secondary">DATE DE NAISSANCE</label>
+                                <label for="dateNaissance" class="form-label fw-semibold">Date de naissance</label>
                                 <input type="text" id="dateNaissance" name="dateNaissance"
                                        class="form-control" placeholder="JJ/MM/AAAA"
                                        th:value="${person.dateNaissance != null ? #temporals.format(person.dateNaissance, 'dd/MM/yyyy') : ''}"
@@ -85,16 +83,16 @@
 
                             <!-- Adresse -->
                             <div class="col-12">
-                                <label for="adresse" class="form-label small fw-bold text-secondary">ADRESSE</label>
+                                <label for="adresse" class="form-label fw-semibold">Adresse</label>
                                 <input type="text" id="adresse" class="form-control"
-                                       th:field="*{adresse}" placeholder="Rue, ville, code postal...">
+                                       th:field="*{adresse}" placeholder="Rue, ville...">
                             </div>
                         </div>
 
                         <!-- Boutons -->
                         <hr>
                         <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-violet">
                                 <i class="bi bi-check-lg me-1"></i> Enregistrer
                             </button>
                             <a th:href="@{/persons/search}" class="btn btn-outline-secondary">

@@ -8,11 +8,11 @@
 <body>
 <div layout:fragment="content">
 
-    <!-- Header -->
+    <!-- En-tête -->
     <div class="d-flex align-items-center justify-content-between mb-4">
         <div>
-            <h4 class="fw-bold mb-0"><i class="bi bi-people text-success me-2"></i>Liste des personnes</h4>
-            <p class="text-secondary small mb-0">
+            <h4 class="fw-bold mb-0"><i class="bi bi-people me-2" style="color:#f59e0b;"></i>Personnes</h4>
+            <p class="text-muted small mb-0">
                 <span th:text="${#lists.size(persons)}">0</span> enregistrement(s)
             </p>
         </div>
@@ -20,17 +20,17 @@
             <a th:href="@{/persons/new}" class="btn btn-success btn-sm" sec:authorize="hasAnyRole('ADMIN','USER')">
                 <i class="bi bi-person-plus me-1"></i> Ajouter
             </a>
-            <a th:href="@{/persons/search}" class="btn btn-primary btn-sm">
+            <a th:href="@{/persons/search}" class="btn btn-violet btn-sm">
                 <i class="bi bi-search me-1"></i> Rechercher
             </a>
         </div>
     </div>
 
     <!-- Tableau -->
-    <div class="card shadow-sm">
+    <div class="card shadow-card">
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
+                <thead style="background:#f59e0b; color:#fff;">
                 <tr>
                     <th>#</th>
                     <th>Civilité</th>
@@ -43,24 +43,24 @@
                 </thead>
                 <tbody>
                 <tr th:each="p : ${persons}">
-                    <td class="text-secondary" th:text="${p.id}"></td>
+                    <td class="text-muted" th:text="${p.id}"></td>
                     <td>
-                        <span class="badge"
-                              th:classappend="${p.civilite.name() == 'M'} ? 'bg-primary' : (${p.civilite.name() == 'Mme'} ? 'bg-success' : 'bg-info text-dark')"
+                        <span class="badge rounded-pill"
+                              th:classappend="${p.civilite.name() == 'M'} ? 'bg-primary' : (${p.civilite.name() == 'Mme'} ? 'bg-success' : 'bg-warning text-dark')"
                               th:text="${p.civilite.name() == 'M' ? 'M.' : (p.civilite.name() == 'Mme' ? 'Mme' : 'Mlle')}"></span>
                     </td>
                     <td>
                         <a th:href="@{/persons/{id}(id=${p.id})}"
-                           class="fw-bold text-decoration-none text-primary"
+                           class="fw-bold text-decoration-none"
+                           style="color:#6366f1;"
                            sec:authorize="hasRole('ADMIN')">
-                            <i class="bi bi-pencil-square me-1"></i>
                             <span th:text="${p.nom}"></span>
                         </a>
                         <span th:text="${p.nom}" class="fw-bold" sec:authorize="!hasRole('ADMIN')"></span>
                     </td>
                     <td th:text="${p.prenom}"></td>
-                    <td class="text-secondary" th:text="${p.adresse} ?: '—'"></td>
-                    <td class="text-secondary"
+                    <td class="text-muted" th:text="${p.adresse} ?: '—'"></td>
+                    <td class="text-muted"
                         th:text="${p.dateNaissance != null} ? ${#temporals.format(p.dateNaissance, 'dd/MM/yyyy')} : '—'"></td>
                     <td sec:authorize="hasRole('ADMIN')" class="text-center">
                         <form method="post" th:action="@{/persons/{id}/delete(id=${p.id})}"
@@ -74,8 +74,8 @@
                 </tr>
                 <tr th:if="${#lists.isEmpty(persons)}">
                     <td colspan="7" class="text-center py-5">
-                        <i class="bi bi-people text-secondary" style="font-size:2.5rem;"></i>
-                        <p class="text-secondary mt-2 mb-0">Aucune personne trouvée.</p>
+                        <i class="bi bi-people" style="font-size:2.5rem; color:#f59e0b;"></i>
+                        <p class="text-muted mt-2 mb-0">Aucune personne trouvée.</p>
                     </td>
                 </tr>
                 </tbody>

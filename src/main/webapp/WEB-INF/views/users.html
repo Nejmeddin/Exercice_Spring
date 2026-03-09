@@ -7,37 +7,37 @@
 <body>
 <div layout:fragment="content">
 
-    <h4 class="fw-bold mb-1"><i class="bi bi-person-gear text-danger me-2"></i>Utilisateurs</h4>
-    <p class="text-secondary small mb-4">
+    <h4 class="fw-bold mb-1"><i class="bi bi-person-gear me-2" style="color:#ef4444;"></i>Utilisateurs</h4>
+    <p class="text-muted small mb-4">
         <span th:text="${#lists.size(users)}">0</span> compte(s)
     </p>
 
-    <div class="card shadow-sm">
+    <div class="card shadow-card">
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
+                <thead style="background:#ef4444; color:#fff;">
                 <tr>
                     <th>#</th>
                     <th>Login</th>
-                    <th>Password</th>
+                    <th>Mot de passe</th>
                     <th>Rôle</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="u : ${users}">
-                    <td class="text-secondary" th:text="${u.id}"></td>
+                    <td class="text-muted" th:text="${u.id}"></td>
                     <td class="fw-bold" th:text="${u.login}"></td>
-                    <td class="text-secondary">••••••••</td>
+                    <td class="text-muted">••••••••</td>
                     <td>
-                        <span class="badge"
+                        <span class="badge rounded-pill"
                               th:classappend="${u.role != null and u.role.name() == 'ADMIN'} ? 'bg-danger' : 'bg-secondary'"
                               th:text="${u.role}"></span>
                     </td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(users)}">
                     <td colspan="4" class="text-center py-5">
-                        <i class="bi bi-person-x text-secondary" style="font-size:2.5rem;"></i>
-                        <p class="text-secondary mt-2 mb-0">Aucun utilisateur trouvé.</p>
+                        <i class="bi bi-person-x" style="font-size:2.5rem; color:#ef4444;"></i>
+                        <p class="text-muted mt-2 mb-0">Aucun utilisateur trouvé.</p>
                     </td>
                 </tr>
                 </tbody>

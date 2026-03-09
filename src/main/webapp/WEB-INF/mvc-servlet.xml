@@ -7,7 +7,7 @@
     <mvc:annotation-driven/>
 
     <!-- Servir les WebJars (Bootstrap, Bootstrap Icons, etc.) -->
-    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+    <!--<mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>-->
 
     <!-- Fallback pour les autres ressources statiques -->
     <mvc:default-servlet-handler/>

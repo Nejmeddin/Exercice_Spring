@@ -9,67 +9,58 @@
 <div layout:fragment="content">
 
     <!-- Hero -->
-    <div class="bg-white rounded shadow-sm p-5 mb-4">
-        <h2 class="fw-bold"><i class="bi bi-grid-fill text-primary me-2"></i>Bienvenue</h2>
-        <p class="text-secondary mb-4">Application de gestion de personnes — Spring MVC + Thymeleaf + Bootstrap 5.</p>
-        <div class="d-flex gap-2" sec:authorize="isAuthenticated()">
-            <a th:href="@{/persons/search}" class="btn btn-primary">
-                <i class="bi bi-search me-1"></i> Rechercher une personne
+    <div class="text-center py-5 mb-4 rounded-4 text-white"
+         style="background: linear-gradient(135deg, #6366f1, #ec4899);">
+        <i class="bi bi-people-fill" style="font-size:3rem;"></i>
+        <h2 class="fw-bold mt-2">Bienvenue sur GestionPro</h2>
+        <p class="opacity-75 mb-4">Gérez facilement vos contacts et personnes.</p>
+        <div sec:authorize="isAuthenticated()">
+            <a th:href="@{/persons/search}" class="btn btn-light fw-bold me-2">
+                <i class="bi bi-search me-1"></i> Rechercher
             </a>
-            <a th:href="@{/persons/new}" class="btn btn-success">
-                <i class="bi bi-person-plus me-1"></i> Ajouter une personne
-            </a>
-            <a th:href="@{/persons}" class="btn btn-outline-dark">
-                <i class="bi bi-people me-1"></i> Voir toutes les personnes
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/persons/new}" class="btn btn-outline-light fw-bold">
+                <i class="bi bi-person-plus me-1"></i> Ajouter
             </a>
         </div>
         <div sec:authorize="!isAuthenticated()">
-            <a th:href="@{/login}" class="btn btn-dark">
+            <a th:href="@{/login}" class="btn btn-light fw-bold">
                 <i class="bi bi-box-arrow-in-right me-1"></i> Se connecter
             </a>
         </div>
     </div>
 
     <!-- Accès rapide -->
-    <div class="row g-3" sec:authorize="isAuthenticated()">
+    <div class="row g-4" sec:authorize="isAuthenticated()">
         <div class="col-md-3">
-            <div class="card shadow-sm h-100">
-                <div class="card-body text-center py-4">
-                    <i class="bi bi-search text-primary fs-1 mb-3 d-block"></i>
-                    <h6 class="fw-bold">Recherche</h6>
-                    <p class="text-secondary small">Filtrer par nom, prénom, civilité</p>
-                    <a th:href="@{/persons/search}" class="btn btn-sm btn-outline-primary">Accéder</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm h-100">
-                <div class="card-body text-center py-4">
-                    <i class="bi bi-person-plus text-success fs-1 mb-3 d-block"></i>
-                    <h6 class="fw-bold">Ajouter</h6>
-                    <p class="text-secondary small">Créer une nouvelle personne</p>
-                    <a th:href="@{/persons/new}" class="btn btn-sm btn-outline-success">Accéder</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm h-100">
-                <div class="card-body text-center py-4">
-                    <i class="bi bi-people text-info fs-1 mb-3 d-block"></i>
-                    <h6 class="fw-bold">Personnes</h6>
-                    <p class="text-secondary small">Voir la liste complète</p>
-                    <a th:href="@{/persons}" class="btn btn-sm btn-outline-info">Accéder</a>
-                </div>
+            <div class="card shadow-card h-100 text-center p-4">
+                <i class="bi bi-search fs-1 mb-2" style="color:#6366f1;"></i>
+                <h6 class="fw-bold">Recherche</h6>
+                <p class="text-muted small">Filtrer par nom, prénom, civilité</p>
+                <a th:href="@{/persons/search}" class="btn btn-sm btn-violet mt-auto">Accéder</a>
             </div>
         </div>
         <div class="col-md-3" sec:authorize="hasRole('ADMIN')">
-            <div class="card shadow-sm h-100">
-                <div class="card-body text-center py-4">
-                    <i class="bi bi-person-gear text-danger fs-1 mb-3 d-block"></i>
-                    <h6 class="fw-bold">Utilisateurs</h6>
-                    <p class="text-secondary small">Gérer les comptes</p>
-                    <a th:href="@{/users}" class="btn btn-sm btn-outline-danger">Accéder</a>
-                </div>
+            <div class="card shadow-card h-100 text-center p-4">
+                <i class="bi bi-person-plus fs-1 mb-2" style="color:#10b981;"></i>
+                <h6 class="fw-bold">Ajouter</h6>
+                <p class="text-muted small">Créer une nouvelle personne</p>
+                <a th:href="@{/persons/new}" class="btn btn-sm btn-success mt-auto">Accéder</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-card h-100 text-center p-4">
+                <i class="bi bi-people fs-1 mb-2" style="color:#f59e0b;"></i>
+                <h6 class="fw-bold">Personnes</h6>
+                <p class="text-muted small">Voir la liste complète</p>
+                <a th:href="@{/persons}" class="btn btn-sm btn-warning mt-auto">Accéder</a>
+            </div>
+        </div>
+        <div class="col-md-3" sec:authorize="hasRole('ADMIN')">
+            <div class="card shadow-card h-100 text-center p-4">
+                <i class="bi bi-gear fs-1 mb-2" style="color:#ef4444;"></i>
+                <h6 class="fw-bold">Utilisateurs</h6>
+                <p class="text-muted small">Gérer les comptes</p>
+                <a th:href="@{/users}" class="btn btn-sm btn-danger mt-auto">Accéder</a>
             </div>
         </div>
     </div>

@@ -8,31 +8,30 @@
 <div layout:fragment="content">
 
     <div class="row justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-7">
 
-            <!-- Header -->
+            <!-- En-tête -->
             <div class="d-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h4 class="fw-bold mb-0"><i class="bi bi-person-plus text-success me-2"></i>Nouvelle personne</h4>
-                    <p class="text-secondary small mb-0">Remplissez les informations puis enregistrez</p>
-                </div>
+                <h4 class="fw-bold mb-0"><i class="bi bi-person-plus me-2" style="color:#10b981;"></i>Nouvelle personne</h4>
                 <a th:href="@{/persons/search}" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-arrow-left me-1"></i> Retour
                 </a>
             </div>
 
             <!-- Formulaire -->
-            <div class="card shadow-sm">
-                <div class="card-header bg-white py-3">
-                    <span class="fw-bold"><i class="bi bi-person-plus me-1 text-success"></i> Formulaire d'ajout</span>
+            <div class="card shadow-card">
+                <div class="text-white py-3 px-4"
+                     style="background: linear-gradient(135deg, #10b981, #34d399); border-radius: 12px 12px 0 0;">
+                    <i class="bi bi-person-plus me-2"></i>
+                    <span class="fw-bold">Formulaire d'ajout</span>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     <form method="post" th:action="@{/persons/new}" th:object="${person}">
                         <div class="row g-3">
 
                             <!-- Nom -->
                             <div class="col-md-6">
-                                <label for="nom" class="form-label small fw-bold text-secondary">NOM <span class="text-danger">*</span></label>
+                                <label for="nom" class="form-label fw-semibold">Nom <span class="text-danger">*</span></label>
                                 <input type="text" id="nom" class="form-control"
                                        th:field="*{nom}"
                                        th:classappend="${#fields.hasErrors('nom')} ? 'is-invalid'">
@@ -41,7 +40,7 @@
 
                             <!-- Prénom -->
                             <div class="col-md-6">
-                                <label for="prenom" class="form-label small fw-bold text-secondary">PRÉNOM <span class="text-danger">*</span></label>
+                                <label for="prenom" class="form-label fw-semibold">Prénom <span class="text-danger">*</span></label>
                                 <input type="text" id="prenom" class="form-control"
                                        th:field="*{prenom}"
                                        th:classappend="${#fields.hasErrors('prenom')} ? 'is-invalid'">
@@ -50,7 +49,7 @@
 
                             <!-- Civilité -->
                             <div class="col-md-6">
-                                <label for="civilite" class="form-label small fw-bold text-secondary">CIVILITÉ</label>
+                                <label for="civilite" class="form-label fw-semibold">Civilité</label>
                                 <select id="civilite" class="form-select" th:field="*{civilite}">
                                     <option th:each="c : ${civilites}"
                                             th:value="${c}"
@@ -61,7 +60,7 @@
 
                             <!-- Date naissance -->
                             <div class="col-md-6">
-                                <label for="dateNaissance" class="form-label small fw-bold text-secondary">DATE DE NAISSANCE</label>
+                                <label for="dateNaissance" class="form-label fw-semibold">Date de naissance</label>
                                 <input type="text" id="dateNaissance" name="dateNaissance"
                                        class="form-control" placeholder="JJ/MM/AAAA"
                                        th:value="${person.dateNaissance != null ? #temporals.format(person.dateNaissance, 'dd/MM/yyyy') : ''}"
@@ -72,9 +71,9 @@
 
                             <!-- Adresse -->
                             <div class="col-12">
-                                <label for="adresse" class="form-label small fw-bold text-secondary">ADRESSE</label>
+                                <label for="adresse" class="form-label fw-semibold">Adresse</label>
                                 <input type="text" id="adresse" class="form-control"
-                                       th:field="*{adresse}" placeholder="Rue, ville, code postal...">
+                                       th:field="*{adresse}" placeholder="Rue, ville...">
                             </div>
                         </div>
 

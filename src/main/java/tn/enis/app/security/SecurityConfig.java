@@ -1,7 +1,6 @@
 package tn.enis.app.security;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -15,7 +14,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackages = "tn.enis.app")
 public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;

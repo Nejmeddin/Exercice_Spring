@@ -7,15 +7,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-/**
- * Classe utilitaire à exécuter directement (Run → main)
- * pour injecter des utilisateurs dans la base de données.
- *
- * Les mots de passe sont automatiquement encodés en BCrypt.
- */
 public class InjectUsers {
 
-    // ─── Paramètres de connexion (identiques à applicationContext.xml) ───
     private static final String DB_URL = "jdbc:mysql://localhost:3306/Exercice_Spring_PFE?createDatabaseIfNotExist=true";
     private static final String DB_USER = "root";
     private static final String DB_PASS = "";
