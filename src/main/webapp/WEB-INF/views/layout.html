@@ -27,7 +27,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark shadow">
     <div class="container">
         <a class="navbar-brand" th:href="@{/}">
-            <i class="bi bi-grid-3x3-gap-fill me-1"></i> GestionPro
+            <i class="bi bi-grid-3x3-gap-fill me-1"></i>
+
+            <span sec:authorize="hasRole('ADMIN')">GestionAdmin</span>
+            <span sec:authorize="!hasRole('ADMIN')">GestionPersonnes</span>
         </a>
         <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse" data-bs-target="#mainNav">

@@ -16,6 +16,11 @@
                 <span th:text="${#lists.size(persons)}">0</span> enregistrement(s)
             </p>
         </div>
+        <!-- Succès -->
+        <div th:if="${success}" class="alert alert-success d-flex align-items-center" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <span th:text="${success}"></span>
+        </div>
         <div class="d-flex gap-2">
             <a th:href="@{/persons/new}" class="btn btn-success btn-sm" sec:authorize="hasAnyRole('ADMIN','USER')">
                 <i class="bi bi-person-plus me-1"></i> Ajouter

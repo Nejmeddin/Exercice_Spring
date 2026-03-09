@@ -58,8 +58,8 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/access-denied")).permitAll()
 
                 // Ajout : ADMIN + USER (doit être AVANT /persons/{id})
-                .requestMatchers(new AntPathRequestMatcher("/persons/new", "GET")).hasAnyRole("ADMIN", "USER")
-                .requestMatchers(new AntPathRequestMatcher("/persons/new", "POST")).hasAnyRole("ADMIN", "USER")
+                .requestMatchers(new AntPathRequestMatcher("/persons/new", "GET")).hasAnyRole("ADMIN")
+                .requestMatchers(new AntPathRequestMatcher("/persons/new", "POST")).hasAnyRole("ADMIN")
 
                 // Recherche : ADMIN + USER
                 .requestMatchers(new AntPathRequestMatcher("/persons/search")).hasAnyRole("ADMIN", "USER")

@@ -21,15 +21,11 @@ public class PersonController {
 
     private final PersonService personService;
 
-    /* ───── Liste complète ───── */
-
     @GetMapping("/persons")
     public String persons(Model model) {
         model.addAttribute("persons", personService.findAll());
         return "persons";
     }
-
-    /* ───── Recherche avec critères ET ───── */
 
     @GetMapping("/persons/search")
     public String search(
@@ -55,8 +51,6 @@ public class PersonController {
         return "recherche";
     }
 
-    /* ───── Détail / Modification (GET) ───── */
-
     @GetMapping("/persons/{id}")
     public String details(@PathVariable("id") Long id, Model model) {
         Person person = personService.findById(id);
@@ -69,8 +63,6 @@ public class PersonController {
         model.addAttribute("civilites", Person.Civility.values());
         return "details";
     }
-
-    /* ───── Modification (POST) ───── */
 
     @PostMapping("/persons/{id}")
     public String update(
@@ -122,7 +114,7 @@ public class PersonController {
 
         personService.save(person);
         redirectAttributes.addFlashAttribute("success", "Personne ajoutée avec succès !");
-        return "redirect:/persons/search";
+        return "redirect:/persons";
     }
 
     /* ───── Suppression (POST) ───── */
@@ -138,6 +130,6 @@ public class PersonController {
             redirectAttributes.addFlashAttribute("success", "Personne supprimée avec succès !");
         }
 
-        return "redirect:/persons/search";
+        return "redirect:/persons";
     }
 }
