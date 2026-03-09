@@ -12,13 +12,13 @@
     <div class="text-center py-5 mb-4 rounded-4 text-white"
          style="background: linear-gradient(135deg, #6366f1, #ec4899);">
         <i class="bi bi-people-fill" style="font-size:3rem;"></i>
-        <h2 class="fw-bold mt-2">Bienvenue sur GestionPro</h2>
+        <h2 class="fw-bold mt-2">Bienvenue sur GestionPersonnes</h2>
         <p class="opacity-75 mb-4">Gérez facilement vos contacts et personnes.</p>
         <div sec:authorize="isAuthenticated()">
             <a th:href="@{/persons/search}" class="btn btn-light fw-bold me-2">
                 <i class="bi bi-search me-1"></i> Rechercher
             </a>
-            <a sec:authorize="hasRole('ADMIN')" th:href="@{/persons/new}" class="btn btn-outline-light fw-bold">
+            <a sec:authorize="hasAnyRole('ADMIN','USER')" th:href="@{/persons/new}" class="btn btn-outline-light fw-bold">
                 <i class="bi bi-person-plus me-1"></i> Ajouter
             </a>
         </div>
@@ -39,7 +39,7 @@
                 <a th:href="@{/persons/search}" class="btn btn-sm btn-violet mt-auto">Accéder</a>
             </div>
         </div>
-        <div class="col-md-3" sec:authorize="hasRole('ADMIN')">
+        <div class="col-md-3" sec:authorize="hasAnyRole('ADMIN','USER')">
             <div class="card shadow-card h-100 text-center p-4">
                 <i class="bi bi-person-plus fs-1 mb-2" style="color:#10b981;"></i>
                 <h6 class="fw-bold">Ajouter</h6>

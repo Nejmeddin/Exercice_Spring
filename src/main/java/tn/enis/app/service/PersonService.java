@@ -12,14 +12,16 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PersonService {
+public class PersonService implements PersonServiceInterface {
 
     private final PersonRepository personRepository;
 
+    @Override
     public List<Person> findAll() {
         return personRepository.findAll();
     }
 
+    @Override
     public List<Person> search(String nom, String prenom, Person.Civility civilite) {
         boolean hasNom = nom != null && !nom.isBlank();
         boolean hasPrenom = prenom != null && !prenom.isBlank();
@@ -44,14 +46,17 @@ public class PersonService {
         return personRepository.findAll(spec);
     }
 
+    @Override
     public Person findById(Long id) {
         return personRepository.findById(id).orElse(null);
     }
 
+    @Override
     public Person save(Person person) {
         return personRepository.save(person);
     }
 
+    @Override
     public Person update(Long id, Person person) {
         Person existing = personRepository.findById(id).orElse(null);
 
@@ -67,7 +72,7 @@ public class PersonService {
 
         return personRepository.save(existing);
     }
-
+    @Override
     public boolean deleteById(Long id) {
         if (personRepository.existsById(id)) {
             personRepository.deleteById(id);
